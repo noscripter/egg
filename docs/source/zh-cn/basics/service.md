@@ -10,7 +10,7 @@ title: service
 ## 使用场景
 
 - 复杂数据的处理，比如要展现的信息需要从数据库获取，还要经过一定的规则计算，才能返回用户显示。或者计算完成后，更新到数据库。
-- 第三方服务的调用，比如 Github 信息获取等。
+- 第三方服务的调用，比如 GitHub 信息获取等。
 
 ## 定义 service
 
@@ -34,10 +34,13 @@ title: service
 
   ```js
   app/service/biz/user.js => this.service.biz.user.find
+  app/service/sync_user.js => this.service.syncUser
+  app/service/HackerNews.js => this.service.hackerNews
   ```
 
 - 一个 service 文件只能包含一个类， 这个类需要通过 `module.exports` 的方式返回。
 - service 需要通过 Class 的方式定义，父类必须是 `app.Service`, 其中 `app.Service` 会在初始化 service 的时候通过参数传递进来。
+- service 不是单例，是 **请求级别** 的对象，框架在每次请求中首次访问 `this.service.xx` 时延迟实例化。
 
 ### service ctx 详解
 
